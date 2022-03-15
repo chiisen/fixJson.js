@@ -13,6 +13,8 @@ npm install -g fix-json-format
 npm list -g --depth=0
 ```
 
+[fixJson.js : npm 說明頁面連結](https://www.npmjs.com/package/fix-json-format)
+
 ![npm list](https://i.imgur.com/a56xdBl.png)
 
 # npm 版本發佈
