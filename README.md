@@ -17,6 +17,13 @@ npm list --depth=0
 
 ![npm list](https://i.imgur.com/a56xdBl.png)
 
+# 範例
+```
+const { fix_json } = require("fix-json-format")
+
+console.log(fix_json(str))
+```
+
 # npm 版本發佈
 * 首次登入 npm
 ```
