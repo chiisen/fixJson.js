@@ -6,11 +6,11 @@
 # 安裝
 安裝方式如下:
 ```
-npm install -g fix-json-format
+npm install fix-json-format
 ```
 安裝後，可以用下列指令查詢安裝過的套件:
 ```
-npm list -g --depth=0
+npm list --depth=0
 ```
 
 [fixJson.js : npm 說明頁面連結](https://www.npmjs.com/package/fix-json-format)
