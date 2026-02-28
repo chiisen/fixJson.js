@@ -26,8 +26,24 @@ npm install fix-json-format
 - **性能優化** - 減少重複 replace 次數
 - **TypeScript 支援** - 完整類型定義
 - **ESM/CommonJS 支援** - 支援兩種模組系統
+- **CLI 工具** - 命令列介面
 
 # 📝 範例
+
+## CLI 命令列
+```bash
+# 從檔案讀取
+fix-json-format input.json
+
+# 從標準輸入讀取
+cat input.json | fix-json-format
+
+# 輸出到檔案
+fix-json-format input.json -o output.json
+
+# 顯示說明
+fix-json-format --help
+```
 
 ## CommonJS
 ```javascript
@@ -64,7 +80,23 @@ npm test        # Jest 單元測試
 npm run test:legacy  # 原有測試
 ```
 
+## CLI 測試
+```bash
+# 本地開發測試
+npm link                    # 連結本地指令
+fix-json-format --version   # 顯示版本
+fix-json-format --help      # 顯示說明
+echo '{name:"test"}' | fix-json-format  # 修復 JSON
+
+# 或直接使用 npx (不需安裝)
+npx fix-json-format --version
+echo '{name:"test"}' | npx fix-json-format
+```
+
 # 📋 更新日誌
+
+## v1.0.3
+- 新增 CLI 命令列工具
 
 ## v1.0.2
 - 新增 TypeScript 類型定義 (.d.ts)

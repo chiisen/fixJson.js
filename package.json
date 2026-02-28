@@ -1,10 +1,13 @@
 {
   "name": "fix-json-format",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "修正不正常的 json 資料格式",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
+  "bin": {
+    "fix-json-format": "./bin/cli.js"
+  },
   "exports": {
     ".": {
       "types": "./index.d.ts",
