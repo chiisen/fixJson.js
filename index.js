@@ -2,6 +2,7 @@
  * 格式化 json 字串
  *
  * @param {string} str
+ * @returns {{ result: string | null, error: string | null }}
  */
 function fix_json(str) {
   str = str.replace(/\\/g, "")
@@ -55,7 +56,26 @@ function fix_json(str) {
 
   str = str.replace(/0bottomLine0/g, "_")
 
-  return str
+  let error = null
+  try {
+    JSON.parse(str)
+  } catch (e) {
+    const match = e.message.match(/position (\d+)/)
+    if (match) {
+      const pos = parseInt(match[1], 10)
+      const lines = str.substring(0, pos).split("\n")
+      const line = lines.length
+      const column = lines[lines.length - 1].length + 1
+      const contextStart = Math.max(0, pos - 20)
+      const contextEnd = Math.min(str.length, pos + 20)
+      const context = str.substring(contextStart, contextEnd).replace(/\n/g, "\\n")
+      error = `JSON Syntax Error at line ${line}, column ${column}: ${e.message}\nContext: ...${context}...`
+    } else {
+      error = `JSON Syntax Error: ${e.message}`
+    }
+  }
+
+  return { result: str, error }
 }
 
 module.exports = { fix_json }
