@@ -4,7 +4,8 @@
   "description": "修正不正常的 json 資料格式",
   "main": "index.js",
 "scripts": {
-    "test": "node test.js"
+    "test": "jest",
+    "test:legacy": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/chiisen/fixJson.js/issues"
   },
-  "homepage": "https://github.com/chiisen/fixJson.js#readme"
+  "homepage": "https://github.com/chiisen/fixJson.js#readme",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
 }

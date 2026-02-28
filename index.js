@@ -2,9 +2,21 @@
  * 格式化 json 字串
  *
  * @param {string} str
- * @returns {{ result: string | null, error: string | null }}
+ * @param {object} options
+ * @param {boolean} options.returnObject - 回傳物件格式 { result, error }，預設 true
+ * @param {boolean} options.fixMissingComma - 自動修復漏逗號，預設 true
+ * @returns {string | { result: string, error: string | null }}
  */
-function fix_json(str) {
+function fix_json(str, options = {}) {
+  const { returnObject = true, fixMissingComma = true } = options
+
+  if (!str || typeof str !== "string") {
+    const error = "Input is not a valid string"
+    return returnObject ? { result: str, error } : str
+  }
+
+  str = str.trim()
+
   str = str.replace(/\\/g, "")
   str = str.replace(/_/g, "0bottomLine0")
 
@@ -56,6 +68,11 @@ function fix_json(str) {
 
   str = str.replace(/0bottomLine0/g, "_")
 
+  // 自動修復漏逗號
+  if (fixMissingComma) {
+    str = fixMissingCommas(str)
+  }
+
   let error = null
   try {
     JSON.parse(str)
@@ -75,7 +92,30 @@ function fix_json(str) {
     }
   }
 
-  return { result: str, error }
+  if (returnObject) {
+    return { result: str, error }
+  }
+  return str
+}
+
+/**
+ * 自動修復漏逗號
+ * @param {string} str
+ * @returns {string}
+ */
+function fixMissingCommas(str) {
+  let result = str
+
+  result = result.replace(/("[\w-]+":[^,}\]]+)\s*("[\w-]+":)/g, "$1,$2")
+
+  let before, i = 0
+  do {
+    before = result
+    result = result.replace(/("[\w-]+":\s*[^,\[\]{}"]+)\s+("[\w-]+":)/g, "$1,$2")
+    i++
+  } while (result !== before && i < 10)
+
+  return result
 }
 
 module.exports = { fix_json }

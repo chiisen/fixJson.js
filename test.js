@@ -53,6 +53,30 @@ const testCases = [
     name: "無法修復的錯誤",
     input: '{"name":,"value":123}',
   },
+  {
+    name: "多行 JSON",
+    input: `{
+  "name": "test",
+  "value": 123
+}`,
+  },
+  {
+    name: "多行缺少逗號",
+    input: `{
+  "name": "test"
+  "value": 123
+}`,
+  },
+  {
+    name: "向後相容 - 回傳字串",
+    input: '{"name":"test"}',
+    options: { returnObject: false },
+  },
+  {
+    name: "自動修復漏逗號",
+    input: '{"name":"test" "value":123}',
+    options: { fixMissingComma: true },
+  },
 ]
 
 let passed = 0
@@ -60,13 +84,26 @@ let failed = 0
 
 console.log("🧪 Running fix_json tests...\n")
 
-testCases.forEach(({ name, input }) => {
-  const { result, error } = fix_json(input)
+testCases.forEach(({ name, input, options }) => {
+  const result = fix_json(input, options)
+  
+  if (options?.returnObject === false) {
+    if (typeof result === "string") {
+      console.log(`✅ ${name} (backward compatible)`)
+      passed++
+    } else {
+      console.log(`❌ ${name} - Expected string, got object`)
+      failed++
+    }
+    return
+  }
+
+  const { result: fixedStr, error } = result
   const isValid = error === null
 
   if (isValid) {
     try {
-      JSON.parse(result)
+      JSON.parse(fixedStr)
       console.log(`✅ ${name}`)
       passed++
     } catch (e) {
