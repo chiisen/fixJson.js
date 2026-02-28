@@ -157,3 +157,4 @@ function parseJsonError(message, str) {
 }
 
 module.exports = { fix_json }
+module.exports.default = fix_json

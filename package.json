@@ -1,15 +1,24 @@
 {
   "name": "fix-json-format",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "修正不正常的 json 資料格式",
   "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.js"
+    }
+  },
   "scripts": {
     "test": "jest",
     "test:legacy": "node test.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chiisen/fixJson.js"
+    "url": "git+https://github.com/chiisen/fixJson.js.git"
   },
   "keywords": [
     "json"
