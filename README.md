@@ -11,6 +11,8 @@ npm install fix-json-format
 # ✨ 功能
 - 修正缺少引號的 key/value
 - 修正缺少逗號
+- 修正多餘逗號
+- 修正不平衡括號
 - 修正空值欄位
 - 支援 null/true/false 布林值
 - 支援數字欄位
@@ -19,6 +21,7 @@ npm install fix-json-format
 - 支援多行 JSON
 - 自動修復漏逗號
 - **錯誤提示** - 修復失敗時顯示錯誤行號與位置
+- **性能優化** - 減少重複 replace 次數
 
 # 📝 範例
 ```
@@ -46,6 +49,26 @@ const strResult = fix_json(str, { returnObject: false })
 npm test        # Jest 單元測試
 npm run test:legacy  # 原有測試
 ```
+
+# 📋 更新日誌
+
+## v1.0.1
+- 新增多餘逗號自動修復
+- 新增不平衡括號自動修復
+- 新增字串值缺少引號修復
+- 效能優化 (Stage 分組 + 替換表)
+
+## v1.0.0
+- 初始版本
+- 修正缺少引號的 key/value
+- 修正缺少逗號
+- 修正空值欄位
+- 支援 null/true/false 布林值
+- 支援數字欄位
+- 支援時間格式
+- 支援 IP 格式
+- 支援多行 JSON
+- 錯誤提示功能
 
 # 🚀 npm 版本發佈
 * 🔑 首次登入 npm

@@ -77,6 +77,26 @@ const testCases = [
     input: '{"name":"test" "value":123}',
     options: { fixMissingComma: true },
   },
+  {
+    name: "多餘逗號 - 結尾",
+    input: '{"name":"test","value":123,}',
+  },
+  {
+    name: "多餘逗號 - 多個",
+    input: '{"name":"test",,"value":123,,}',
+  },
+  {
+    name: "缺少右括號",
+    input: '{"name":"test","value":123',
+  },
+  {
+    name: "缺少左括號",
+    input: '"name":"test","value":123}',
+  },
+  {
+    name: "字串值缺少引號",
+    input: '{name:test,value:123}',
+  },
 ]
 
 let passed = 0

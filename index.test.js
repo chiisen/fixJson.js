@@ -118,6 +118,59 @@ describe("fix_json", () => {
     })
   })
 
+  describe("多餘逗號修復", () => {
+    test("結尾多餘逗號", () => {
+      const { result, error } = fix_json('{"name":"test","value":123,}')
+      expect(error).toBeNull()
+      expect(JSON.parse(result)).toEqual({ name: "test", value: 123 })
+    })
+
+    test("多個多餘逗號", () => {
+      const { result, error } = fix_json('{"name":"test",,"value":123,,}')
+      expect(error).toBeNull()
+      expect(JSON.parse(result)).toEqual({ name: "test", value: 123 })
+    })
+
+    test("陣列多餘逗號", () => {
+      const { result, error } = fix_json('{"items":[1,2,3,]}')
+      expect(error).toBeNull()
+      expect(JSON.parse(result)).toEqual({ items: [1, 2, 3] })
+    })
+  })
+
+  describe("括號修復", () => {
+    test("缺少右括號", () => {
+      const { result, error } = fix_json('{"name":"test","value":123')
+      expect(error).toBeNull()
+      expect(JSON.parse(result)).toEqual({ name: "test", value: 123 })
+    })
+
+    test("缺少左括號", () => {
+      const { result, error } = fix_json('"name":"test","value":123}')
+      expect(error).toBeNull()
+      expect(JSON.parse(result)).toEqual({ name: "test", value: 123 })
+    })
+
+    test("缺少右陣列括號", () => {
+      const { result, error } = fix_json('{"items":[1,2,3')
+      expect(error).toBeNull()
+      expect(JSON.parse(result)).toEqual({ items: [1, 2, 3] })
+    })
+
+    test("缺少左陣列括號", () => {
+      const { result, error } = fix_json('"items"]:1,2,3]')
+      expect(error).toBeNull()
+    })
+  })
+
+  describe("字串值缺少引號", () => {
+    test("字串值缺少引號", () => {
+      const { result, error } = fix_json('{name:test,value:123}')
+      expect(error).toBeNull()
+      expect(JSON.parse(result)).toEqual({ name: "test", value: 123 })
+    })
+  })
+
   describe("錯誤處理", () => {
     test("無法修復的錯誤應回傳 error", () => {
       const { result, error } = fix_json('{"name":,"value":123}')

@@ -1,9 +1,9 @@
 {
   "name": "fix-json-format",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "修正不正常的 json 資料格式",
   "main": "index.js",
-"scripts": {
+  "scripts": {
     "test": "jest",
     "test:legacy": "node test.js"
   },
